@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Countdown from "react-countdown";
 import { Button, CircularProgress, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-
 import * as anchor from "@project-serum/anchor";
 
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -41,6 +40,7 @@ const Home = (props: HomeProps) => {
   const [isActive, setIsActive] = useState(false); // true when countdown completes
   const [isSoldOut, setIsSoldOut] = useState(false); // true when items remaining is zero
   const [isMinting, setIsMinting] = useState(false); // true when user got to press MINT
+  const [tokens, setTokens] = useState(false);
 
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
@@ -145,6 +145,31 @@ const Home = (props: HomeProps) => {
     })();
   }, [wallet, props.candyMachineId, props.connection]);
 
+  useEffect(() => {
+    (async () => {
+      if (!wallet) return;
+      const pk = new anchor.web3.PublicKey(
+        "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+      )
+      const items = await props.connection.getTokenAccountsByOwner(wallet.publicKey,
+                                                                                     { programId: pk});
+      console.log('items');
+      console.log(items);
+
+      // const { candyMachine, goLiveDate, itemsRemaining } =
+      //   await getCandyMachineState(
+      //     wallet as anchor.Wallet,
+      //     props.candyMachineId,
+      //     props.connection
+      //   );
+
+      // setIsSoldOut(itemsRemaining === 0);
+      // setStartDate(goLiveDate);
+      // setCandyMachine(candyMachine);
+    })();
+  }, [wallet, props.candyMachineId, props.connection]);
+
+
   return (
     <main>
       {wallet && (
@@ -199,6 +224,11 @@ const Home = (props: HomeProps) => {
     </main>
   );
 };
+
+interface ProgramAccounts {
+  pubkey: anchor.web3.PublicKey,
+  account: anchor.web3.AccountInfo<Buffer>
+}
 
 interface AlertState {
   open: boolean;

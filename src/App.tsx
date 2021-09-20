@@ -2,7 +2,6 @@ import "./App.css";
 import { useMemo } from "react";
 
 import Home from "./Home";
-
 import * as anchor from "@project-serum/anchor";
 import { clusterApiUrl } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
@@ -13,6 +12,11 @@ import {
   getSolletWallet,
   getSolletExtensionWallet,
 } from "@solana/wallet-adapter-wallets";
+
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NFTShop from './pages/nftshop';
+import Wallet from './pages/wallet';
 
 import {
   ConnectionProvider,
@@ -87,14 +91,23 @@ const App = () => {
         <ConnectionProvider endpoint={endpoint}>
           <WalletProvider wallets={wallets} autoConnect>
             <WalletDialogProvider>
-              <Home
-                candyMachineId={candyMachineId}
-                config={config}
-                connection={connection}
-                startDate={startDateSeed}
-                treasury={treasury}
-                txTimeout={txTimeout}
-              />
+            <Router>
+              <Navbar />
+              <Switch>
+                <Route path="/" exact>
+                  <Home
+                    candyMachineId={candyMachineId}
+                    config={config}
+                    connection={connection}
+                    startDate={startDateSeed}
+                    treasury={treasury}
+                    txTimeout={txTimeout}
+                  />
+                </Route>
+                <Route path="/nftshop" component={NFTShop} />
+                <Route path="/wallet" component={Wallet} />
+              </Switch>
+            </Router>
             </WalletDialogProvider>
           </WalletProvider>
         </ConnectionProvider>
