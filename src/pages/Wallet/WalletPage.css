@@ -1,0 +1,22 @@
+.showcase-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 40px;
+    column-gap: 40px;
+}
+
+.header {
+    margin-left: 40px;
+}
+.wallet-text {
+    font-size: 30px;
+}
+.items-text {
+    font-size: 18px;
+    width: 80px;
+    border-bottom: 1px solid black;
+}

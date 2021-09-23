@@ -1,0 +1,30 @@
+img {
+    height: auto;
+    width: 100%;
+}
+
+.image-holder {
+    height: 200px;
+    width: 200px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    justify-content: space-evenly;
+    padding-left: 10px;
+}
+
+.center {
+    align-items: center;
+}
+  

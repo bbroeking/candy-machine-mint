@@ -1,7 +1,7 @@
 import "./App.css";
 import { useMemo } from "react";
 
-import Home from "./Home";
+import Home from "./pages/Home";
 import * as anchor from "@project-serum/anchor";
 import { clusterApiUrl } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
@@ -15,8 +15,6 @@ import {
 
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import NFTShop from './pages/nftshop';
-import Wallet from './pages/wallet';
 
 import {
   ConnectionProvider,
@@ -25,6 +23,8 @@ import {
 
 import { WalletDialogProvider } from "@solana/wallet-adapter-material-ui";
 import { createTheme, ThemeProvider } from "@material-ui/core";
+import NFTShopPage from "pages/NFTShopPage";
+import WalletPage from "pages/Wallet/WalletPage";
 
 const treasury = new anchor.web3.PublicKey(
   process.env.REACT_APP_TREASURY_ADDRESS!
@@ -104,8 +104,13 @@ const App = () => {
                     txTimeout={txTimeout}
                   />
                 </Route>
-                <Route path="/nftshop" component={NFTShop} />
-                <Route path="/wallet" component={Wallet} />
+                <Route path="/nftshop">
+                  <NFTShopPage></NFTShopPage>
+                </Route>
+                <Route path="/wallet"> 
+                  <WalletPage connection={connection}></WalletPage>
+                </Route>
+
               </Switch>
             </Router>
             </WalletDialogProvider>
