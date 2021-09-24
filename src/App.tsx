@@ -23,7 +23,7 @@ import {
 
 import { WalletDialogProvider } from "@solana/wallet-adapter-material-ui";
 import { createTheme, ThemeProvider } from "@material-ui/core";
-import NFTShopPage from "pages/NFTShopPage";
+import NFTShopPage from "pages/NFTShop/NFTShopPage";
 import WalletPage from "pages/Wallet/WalletPage";
 
 const treasury = new anchor.web3.PublicKey(

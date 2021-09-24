@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Icon from './Icon'
 
 const Svg = styled(Icon)` 
-  padding-top: 10px;
+  padding-top: 15px;
   width: 168px; 
   height: 46px;
 `

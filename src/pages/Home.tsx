@@ -5,7 +5,6 @@ import { Button, CircularProgress, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import * as anchor from "@project-serum/anchor";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
 
@@ -16,7 +15,6 @@ import {
   mintOneToken,
   shortenAddress,
 } from "../candy-machine";
-import Wallet from "./Wallet/WalletPage";
 
 const ConnectButton = styled(WalletDialogButton)``;
 
