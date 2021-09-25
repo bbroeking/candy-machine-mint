@@ -7,6 +7,7 @@ import * as anchor from "@project-serum/anchor";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
+import Logo from '../images/1_stage.svg';
 
 import {
   CandyMachine,
@@ -144,14 +145,11 @@ const HomePage = (props: HomeProps) => {
 
   return (
     <main>
-      {wallet && (
-        <p>Address: {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
-      )}
-
-      {wallet && (
-        <p>Balance: {(balance || 0).toLocaleString()} SOL</p>
-      )}
-
+      <div>System for delegators to stake fun collectible game NFT items in validator's farming pools to get additional rewards</div>
+      <img style={{
+        width: 200,
+        height: 200
+      }}src={Logo} alt="React Logo" />
       <MintContainer>
         {!wallet ? (
           <ConnectButton>Connect Wallet</ConnectButton>
