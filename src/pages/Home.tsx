@@ -5,16 +5,15 @@ import { Button, CircularProgress, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import * as anchor from "@project-serum/anchor";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
-import Logo from '../images/1_stage.svg';
 
 import {
   CandyMachine,
   awaitTransactionSignatureConfirmation,
-  getCandyMachineState,
   mintOneToken,
   shortenAddress,
+  getCandyMachineState,
 } from "../candy-machine";
 
 const ConnectButton = styled(WalletDialogButton)``;
@@ -48,7 +47,7 @@ const HomePage = (props: HomeProps) => {
 
   const [startDate, setStartDate] = useState(new Date(props.startDate));
 
-  const wallet = useAnchorWallet();
+  const wallet = useWallet();
   const [candyMachine, setCandyMachine] = useState<CandyMachine>();
 
   const onMint = async () => {
@@ -58,7 +57,7 @@ const HomePage = (props: HomeProps) => {
         const mintTxId = await mintOneToken(
           candyMachine,
           props.config,
-          wallet.publicKey,
+          wallet.publicKey!, // TODO
           props.treasury
         );
 
@@ -110,7 +109,7 @@ const HomePage = (props: HomeProps) => {
       });
     } finally {
       if (wallet) {
-        const balance = await props.connection.getBalance(wallet.publicKey);
+        const balance = await props.connection.getBalance(wallet.publicKey!);
         setBalance(balance / LAMPORTS_PER_SOL);
       }
       setIsMinting(false);
@@ -119,8 +118,8 @@ const HomePage = (props: HomeProps) => {
 
   useEffect(() => {
     (async () => {
-      if (wallet) {
-        const balance = await props.connection.getBalance(wallet.publicKey);
+      if (wallet.publicKey) {
+        const balance = await props.connection.getBalance(wallet.publicKey!);
         setBalance(balance / LAMPORTS_PER_SOL);
       }
     })();
@@ -128,11 +127,11 @@ const HomePage = (props: HomeProps) => {
 
   useEffect(() => {
     (async () => {
-      if (!wallet) return;
+      if (!wallet.publicKey) return;
 
       const { candyMachine, goLiveDate, itemsRemaining } =
         await getCandyMachineState(
-          wallet as anchor.Wallet,
+          wallet.wallet,
           props.candyMachineId,
           props.connection
         );
@@ -146,10 +145,6 @@ const HomePage = (props: HomeProps) => {
   return (
     <main>
       <div>System for delegators to stake fun collectible game NFT items in validator's farming pools to get additional rewards</div>
-      <img style={{
-        width: 200,
-        height: 200
-      }}src={Logo} alt="React Logo" />
       <MintContainer>
         {!wallet ? (
           <ConnectButton>Connect Wallet</ConnectButton>

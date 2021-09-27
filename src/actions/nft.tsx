@@ -16,7 +16,6 @@ import {
   WalletSigner,
   Attribute,
 } from 'common';
-import React from 'react';
 import { MintLayout, Token } from '@solana/spl-token';
 import {
   Keypair,

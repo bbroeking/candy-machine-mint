@@ -51,8 +51,9 @@ import { deprecatedPopulateParticipationPrintingAccount } from 'common/dist/lib/
 import { setupPlaceBid } from './sendPlaceBid';
 import { claimUnusedPrizes } from './claimUnusedPrizes';
 import { createMintAndAccountWithOne } from './createMintAndAccountWithOne';
-import { BN } from 'bn.js';
+// import { BN } from 'bn.js';
 import { QUOTE_MINT } from '../constants';
+import { BN } from '@project-serum/anchor';
 
 export function eligibleForParticipationPrizeGivenWinningIndex(
   winnerIndex: number | null,

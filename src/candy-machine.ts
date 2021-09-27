@@ -1,4 +1,5 @@
 import * as anchor from "@project-serum/anchor";
+import { Wallet } from "@project-serum/anchor";
 
 import {
   MintLayout,
@@ -152,7 +153,7 @@ export const awaitTransactionSignatureConfirmation = async (
 }
 
 export const getCandyMachineState = async (
-  anchorWallet: anchor.Wallet,
+  anchorWallet: any,
   candyMachineId: anchor.web3.PublicKey,
   connection: anchor.web3.Connection,
 ): Promise<CandyMachineState> => {

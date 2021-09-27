@@ -10,13 +10,13 @@ import {
 
 import styled from "styled-components";
 import { ValidatorWars } from "./ValidatorWars";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
 import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
 
 const ConnectButton = styled(WalletDialogButton)``;
 
 const Navbar = () => {
-    const wallet = useAnchorWallet();
+    const wallet = useWallet();
 
     return (
         <>
@@ -29,7 +29,7 @@ const Navbar = () => {
                     <NavLink to="/nftshop" activeClassName="active">Shop</NavLink>
                     <NavLink to="/wallet" activeClassName="active">Wallet</NavLink>
                     <div>
-                        {!wallet ? (
+                        {!wallet.publicKey ? (
                             <ConnectButton>Connect Wallet</ConnectButton>
                         ) : (
                             <p>Address: {shortenAddress(wallet.publicKey.toBase58() || "")}</p>

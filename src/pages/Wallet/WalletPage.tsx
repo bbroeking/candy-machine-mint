@@ -1,7 +1,8 @@
 import { decodeMetadata, getMetadata, Metadata } from "@drappi/metaplex-js-common/dist/lib/actions";
 import * as anchor from "@project-serum/anchor";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect, useRef } from "react";
-import { AnchorWallet, useAnchorWallet } from "@solana/wallet-adapter-react";
+// import { AnchorWallet, useAnchorWallet } from "@solana/wallet-adapter-react";
 import { useState } from "react";
 import WalletItem from "./WalletItem";
 import "./WalletPage.css";
@@ -12,7 +13,7 @@ export interface WalletProps {
 
 const WalletPage = (props: WalletProps) => {
 
-  const wallet = useAnchorWallet();
+  const wallet = useWallet();
   const [tokens, setTokens] = useState<Metadata[]>([]);
 
   async function parseAccount(metadata: any) {
@@ -33,7 +34,7 @@ const WalletPage = (props: WalletProps) => {
   
         let metadataNFTs: Metadata[] = [];
         const parsedAccounts = await props.connection.getParsedTokenAccountsByOwner(
-          wallet.publicKey,
+          wallet.publicKey!,
           { programId: new anchor.web3.PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" )}
         );
         const parsedNFTs = parsedAccounts.value;

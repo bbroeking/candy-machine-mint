@@ -7,17 +7,14 @@ import { clusterApiUrl } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
   getPhantomWallet,
-  getSlopeWallet,
   getSolflareWallet,
   getSolletWallet,
-  getSolletExtensionWallet,
 } from "@solana/wallet-adapter-wallets";
 
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import {
-  ConnectionProvider,
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 
@@ -25,6 +22,7 @@ import { WalletDialogProvider } from "@solana/wallet-adapter-material-ui";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import NFTShopPage from "pages/NFTShop/NFTShopPage";
 import WalletPage from "pages/Wallet/WalletPage";
+import { ConnectionProvider } from "@drappi/metaplex-js-common";
 
 const treasury = new anchor.web3.PublicKey(
   process.env.REACT_APP_TREASURY_ADDRESS!
@@ -78,17 +76,15 @@ const App = () => {
   const wallets = useMemo(
     () => [
         getPhantomWallet(),
-        getSlopeWallet(),
         getSolflareWallet(),
         getSolletWallet({ network }),
-        getSolletExtensionWallet({ network })
     ],
     []
   );
 
   return (
       <ThemeProvider theme={theme}>
-        <ConnectionProvider endpoint={endpoint}>
+        <ConnectionProvider>
           <WalletProvider wallets={wallets} autoConnect>
             <WalletDialogProvider>
             <Router>
